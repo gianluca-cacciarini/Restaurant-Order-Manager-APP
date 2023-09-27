@@ -1,0 +1,157 @@
+.columns {
+  display: flex;
+  gap: 20px;
+}
+
+.column {
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 10px;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.order-card {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#waiting-column .card-header {
+  background-color: #007bff; /* Blue color for waiting */
+}
+
+#in-progress-column .card-header {
+  background-color: #ffc107; /* Yellow color for in progress */
+}
+
+#ready-column .card-header {
+  background-color: #28a745; /* Green color for ready */
+}
+
+.card-header {
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #fff;
+  position: relative;
+}
+
+.card-header h1 {
+  margin: 0;
+}
+
+.card-header .order_id {
+  font-size: 14px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.card-header .order-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.card-header .order-details .status {
+  font-size: 14px;
+  color: #fff;
+}
+
+.card-header .order-details .token {
+  font-size: 14px;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.token,
+.todo {
+  margin: 0;
+}
+
+.move-button {
+  padding: 5px 10px;
+  font-size: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.move-button.move-waiting {
+  background-color: #007bff; /* Blue color for waiting */
+}
+
+.move-button.move-in-progress {
+  background-color: #ffc107; /* Yellow color for in progress */
+}
+
+.move-button.move-ready {
+  background-color: #28a745; /* Green color for ready */
+}
+
+.move-button.move-ready:hover {
+  background-color: #1e7e34; /* Darker green on hover */
+}
+
+.card-footer:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.card-footer.ready-footer {
+  text-align: right;
+}
+
+.card-footer.ready-footer .move-button {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745; /* Green color for ready */
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.card-footer.ready-footer .move-button:hover {
+  background-color: #1e7e34; /* Darker green on hover */
+}
+
+.scroll-container {
+  overflow-y: scroll;
+  max-height: calc(100vh - 20px); /* Adjust as needed */
+}
+
+.column h2 {
+  position: sticky;
+  top: 0;
+  background-color: #f7f7f7;
+  padding: 10px;
+  margin-bottom: 0;
+  z-index: 1;
+}
+
+
+
+.navbar {
+  background: linear-gradient(120deg, #FF3355, #FF6699); /* Blue gradient */
+}
+
+.navbar-light .navbar-brand {
+  color:#fff;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #fff;
+}

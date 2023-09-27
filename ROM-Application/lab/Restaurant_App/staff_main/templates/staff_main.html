@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/staff_main.css') }}">
+  <script src="{{ url_for('static', filename='js/staff_main.js') }}"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">{{ restaurant_id }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" onclick="loadLoginPage()" href="#">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="grid">
+      <div class="item-card" onclick="loadMenuPage(`{{restaurant_id}}`)">
+        <div class="image">
+          <img src="{{ url_for('static', filename='img/menu2.jpg') }}" class="image_size">
+        </div>
+        <div class="card-body">
+          <div class="item-details">
+            <h2 class="item-name bigger-title">Menu</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-card" onclick="loadKitchenPage(`{{restaurant_id}}`)">
+        <div class="image">
+          <img src="{{ url_for('static', filename='img/kitchen.jpg') }}" alt="Restaurant 2" class="image_size">
+        </div>
+        <div class="card-body">
+          <div class="item-details">
+            <h2 class="item-name bigger-title">Kitchen</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-card" onclick="loadChartPage(`{{restaurant_id}}`)">
+        <div class="image">
+          <img src="{{ url_for('static', filename='img/charts2.jpg') }}" alt="Restaurant 3" class="image_size"> 
+        </div>
+        <div class="card-body">
+          <div class="item-details">
+            <h2 class="item-name bigger-title">Charts</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-card" onclick="loadTokenPage(`{{restaurant_id}}`)">
+        <div class="image">
+          <img src="{{ url_for('static', filename='img/tables.jpg') }}" alt="Restaurant 4" class="image_size">
+        </div>
+        <div class="card-body">
+          <div class="item-details">
+            <h2 class="item-name bigger-title">Token</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

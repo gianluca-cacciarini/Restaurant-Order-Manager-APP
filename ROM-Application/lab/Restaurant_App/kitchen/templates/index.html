@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="jquery.serializejson.js"></script>
+        
+    </head>
+    <body>
+        <div style="display:inline-flex; align-items: center;">
+            <h1>Restaurant: {{rest_name}}</h1>
+            <div style="margin-left: 100px;">
+                <label id="token" style="display: inline-flex;">token:</label>
+                <input type="text" name="token" minlength="1" required>
+            </div>
+        </div>
+        <h1>Menu:</h1>
+        <div>
+            <ul>
+                {% for x in menu %}
+                    <li>
+                        <div style="width:100px; display: inline-flex;" >{{x['name']}}</div>    
+                        <button onClick="alert(document.getElementsByName('{{x['name']}}')[0].value)" name={{x['name']}} value={{x['name']}} >delete</button>
+                    </li><br>
+                {% endfor%}
+            </ul>
+        </div>
+        <h1>Add new item to the MENU:</h1>
+        <form id="putItemForm" action="" method="POST" style="margin: 10px;">
+            <label>Item name:</label>
+            <input type="text" name="item_name" minlength="5" required>
+            <!--  TODO: in this case when we add a new item we should send a POST to MENU and get as result the list of all the items present-->
+            <button type="submit" name="add_item_button" onclick="alert('add')">Add Item</button>
+        </form>
+
+        <br><br><br><br><br><br><br><br><br><br>
+
+        <div style="display:inline-flex; align-items: center;">
+            <h1>Restaurant: {{rest_name}}</h1>
+            <div style="margin-left: 100px;">
+                <label id="token" style="display: inline-flex;">token:</label>
+                <input type="text" name="token" minlength="1" required>
+            </div>
+        </div><br>
+        <div style="display: inline;">
+            <button style="width: 100px; height: 40px;">Menu</button>
+            <button style="width: 100px; height: 40px;">Orders</button>
+        </div>
+        <h1>Menu:</h1>
+        <div>
+            <ul>
+                {% for x in menu %}
+                    <li>
+                        <div style="width:100px; display: inline-flex;" >{{x['name']}}</div> 
+                        <button onclick="subtract('{{x['name']}}')">-</button>
+                        <input type="number" min="0" max="99" value="0" name={{x['name']}}>
+                        <button onclick="add('{{x['name']}}')">+</button>
+                    </li><br>
+                {% endfor%}
+            </ul>
+        </div>
+        <form id="putItemForm" action="" method="POST" style="display:inline-flex;">
+            <h1>Make a new Order:</h1>
+            <button type="submit" name="put_orders" onclick="order()" 
+                        style="margin-left: 100px; margin-top: 20px; margin-bottom: 20px; width: 100px;">Order</button>
+        </form>
+
+        <br><br><br><br><br><br><br>
+
+        <div style="display:inline-flex; align-items: center;">
+            <h1>Restaurant: {{rest_name}}</h1>
+            <div style="margin-left: 100px;">
+                <label id="token" style="display: inline-flex;">token:</label>
+                <input type="text" name="token" minlength="1" required>
+            </div>
+        </div><br>
+        <div style="display: inline;">
+            <button style="width: 100px; height: 40px;">Menu</button>
+            <button style="width: 100px; height: 40px;">Orders</button>
+        </div>
+        <h1>Previous Orders:</h1>        
+            {% for x in ret_get %}
+                <div style="display: inline-flex; align-items: baseline;">
+                    <p style="margin: 10px;">{{x}}</p>
+                    <button onClick="alert(document.getElementsByName('{{x['item_name']}}')[0].value)" name={{x['item_name']}} value={{x['item_name']}} >delete</button>
+                </div>
+            {% endfor%}
+
+
+        <script>
+            function subtract(name){
+                var x = parseInt(document.getElementsByName(name)[1].value);
+                document.getElementsByName(name)[1].value=x-1;
+                
+            }
+            function add(name){
+                var x = parseInt(document.getElementsByName(name)[1].value);
+                document.getElementsByName(name)[1].value=x+1;
+            }
+            function order(){
+                alert("to be implemented");
+            }
+        </script>
+
+        <br><br><br><br><br><br><br><br><br><br>
+
+
+        <h1>MAKE A NEW ORDER</h1>
+        <form id="putForm" action="" method="POST">
+            <div style="display:inline-flex; align-items: baseline;">
+                <div style="margin: 10px;">
+                    <label for="table_id">Table number:</label><br>
+                    <input type="number" name="table_id" min="0" minlength="1" required><br>
+                </div>
+                <div style="margin: 10px;">
+                    <label for="item_name">Item name:</label><br>
+                    <input type="text" name="item_name" minlength="1" required><br>
+                </div>
+                <div style="margin: 10px;">
+                    <label for="quantity">quantity:</label><br>
+                    <input type="number" name="quantity" min="1" minlength="1" required><br>
+                </div>
+                <div style="margin: 10px;">
+                    <label for="notes">notes:</label><br>
+                    <input type="text" name="notes" width="200" height="100"><br>
+                </div>
+                <div style="margin: 10px;">
+                    <label for="token">token:</label><br>
+                    <input type="text" name="token" minlength="1" required><br><br>
+                </div>
+                <input type="hidden" name="action" value="put_orders"/>
+                <div  style="margin: 10px;">
+                    <label></label><br>
+                    <button type="submit" name="put_button">put orders</button>
+                </div>
+            </div>
+            <div>
+                {{ret_put}}
+            </div>
+        </form>
+        <h1>MODIFY AN ORDER</h1>
+        <form id="patchForm" action="" method="POST">
+            <div style="display:inline-flex; align-items: baseline;">
+                <div style="margin: 10px;">
+                    <label for="patch_order_id">Order number:</label><br>
+                    <input type="number" id="patch_order_id" name="patch_order_id" min="0" minlength="1" required><br>
+                </div>
+                <div style="margin: 10px;">
+                    <label for="patch_table_id">Table number:</label><br>
+                    <input type="number" id="patch_table_id" name="patch_table_id" min="0" minlength="1"><br>
+                </div>
+                <div style="margin: 10px;">
+                    <label for="patch_item_name">Item name:</label><br>
+                    <input type="text" id="patch_item_name" name="patch_item_name" minlength="1"><br>
+                </div>
+                <div style="margin: 10px;">
+                    <label for="patch_quantity">quantity:</label><br>
+                    <input type="number" id="patch_quantity" name="patch_quantity" min="1" minlength="1"><br>
+                </div>
+                <div style="margin: 10px;">
+                    <label for="patch_status">status:</label><br>
+                    <input type="text" id="patch_status" name="patch_status" minlength="1"><br><br>
+                </div>
+                <div style="margin: 10px;">
+                    <label for="patch_token">token:</label><br>
+                    <input type="text" id="patch_token" name="patch_token" minlength="1" required><br><br>
+                </div>
+                <input type="hidden" name="action" value="update_orders"/>
+                <div  style="margin: 10px;">
+                    <label></label><br>
+                    <button type="submit" name="patch_button">update orders</button>
+                </div>
+            </div>
+            <div>
+                {{ret_update}}
+            </div>
+        </form>
+        <h1>DELETE AN ORDER</h1>
+        <form id="deleteForm" action="" method="POST">
+            <div style="display:inline-flex; align-items: baseline;">
+                <div style="margin: 10px;">
+                    <label for="delete_order_id">Order number:</label><br>
+                    <input type="number" id="delete_order_id" name="delete_order_id" min="0" minlength="1" required><br>
+                </div>
+                <div style="margin: 10px;">
+                    <label for="delete_token">token:</label><br>
+                    <input type="text" id="delete_token" name="delete_token" minlength="1" required><br><br>
+                </div>
+                <input type="hidden" name="action" value="delete_orders"/>
+                <div  style="margin: 10px;">
+                    <label></label><br>
+                    <button type="submit" name="delete_button">delete orders</button>
+                </div>
+            </div>
+            <div>
+                {{ret_delete}}
+            </div>
+        </form>
+        <h1>ORDERS LIST:</h1><br>
+        <form id="getForm" action="" method="POST">
+            <div style="display: inline-flex; align-items: baseline;">
+                <div style="margin: 10px;">
+                    <label for="get_order_id">Order number:</label><br>
+                    <input type="number" id="get_order_id" name="get_order_id" min="0" minlength="1"><br>
+                </div>
+                <div style="margin: 10px;">
+                    <label for="get_table_id">Table number:</label><br>
+                    <input type="number" id="get_table_id" name="get_table_id" min="0" minlength="1"><br>
+                </div>
+                <div style="margin: 10px;">
+                    <label for="get_item_name">Item name:</label><br>
+                    <input type="number" id="get_item_name" name="get_item_name" min="0" minlength="1"><br>
+                </div>
+                <input type="hidden" name="action" value="get_orders"/>
+                <div style="margin: 10px;">
+                    <label></label><br>
+                    <button type="submit" id="get_button" name="get_button">get orders</button>
+                </div>
+            </div>
+        </form>
+        <div>
+            {% for x in ret_get %}
+                <div style="display: inline-flex; align-items: baseline;">
+                    <p style="margin: 10px;">{{x}}</p><br>
+                </div>
+            {% endfor%}
+
+        </div>
+        
+    </body>
+        
+    
+</html>

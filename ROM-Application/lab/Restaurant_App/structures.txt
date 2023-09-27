@@ -1,0 +1,215 @@
+
+
+ITEM 
+
+{
+    name: ----
+    category: ----
+    price: ------
+    picture: -----
+    description:-----
+    allergeni: -----
+}
+
+
+
+ORDER 
+
+{
+    //chiavi primarie
+    rest_name: -----
+    order_id: ------
+
+    token: ------
+    ?table_id: ------
+    status: ( in attesa / in lavorazione / pronto )
+    date: ------
+
+
+    items_list: [
+                    {
+                        item_name: ----
+                        quantity: ----
+                        cost: ----
+                    },
+
+                    {
+                        item_name: ----
+                        quantity: ----
+                        cost: ----
+                    },
+
+                    ....
+                ]
+
+
+}
+
+
+//ldf gianluca come vorresti fare la struttura del token?
+
+
+
+//QUERY PER STATISTICHE
+
+1) riportare numero volte in cui si sono ordinati primi/secondi/contorni/dolci/bevande                  
+
+2) per ogni categoria mostrare diagramma degli item con il numero di volte che sono stati ordinati          
+
+3) punto 2) ma settimanali/mensili 
+
+4) totale ricavi (con distribuzione per ogni categoria)
+
+5) numero coperti settimanali/mensili/globali 
+
+
+
+
+
+
+
+
+HOW TO RUN THE APPLICATION ON DOCKER:
+    WEBPAGE:
+        0) go to the webpage directory
+        1) CREATE THE DOCKER IMAGE
+            docker image build -t webpage_docker . (for creating the image)
+        
+        2) CREATE DOCKER CONTAINER, ASSIGN PORTS, ASSIGN NETWORK
+            docker run -d -p 8002:8002 --net test_network --name webpage webpage_docker 
+
+    ORDERS:
+        0) go to the webpage directory
+        1) CREATE THE DOCKER IMAGE
+            docker image build -t orders_docker . (for creating the image)
+        
+        2) CREATE DOCKER CONTAINER, ASSIGN PORTS, ASSIGN NETWORK
+            docker run -d -p 8000:8000 --net test_network --name orders orders_docker
+
+    KITCHEN:
+        0) go to the webpage directory
+        1) CREATE THE DOCKER IMAGE
+            docker image build -t kitchen_docker . (for creating the image)
+        
+        2) CREATE DOCKER CONTAINER, ASSIGN PORTS, ASSIGN NETWORK
+            docker run -d -p 8001:8001 --net test_network --name kitchen kitchen_docker
+
+    3) open a google page and type:
+        http://localhost:8002/<restaurant_name>/menu/
+
+        what happens is that our pc will send to the local port 8002 a http request, that (thanks to how we configured 
+        the webpage container in 2) ) will be sended to the WEBPAGE container on it's port 8002
+    
+
+
+HOW TO USE DOCKER:
+(https://blog.logrocket.com/build-deploy-flask-app-using-docker/)
+(https://stackoverflow.com/questions/55432711/how-do-i-get-my-two-docker-containers-to-communicate-with-each-other)
+
+0) create the "Dockerfile" files relative to each container that we want create
+
+1)change the urls in the .py files 
+    url_orders = "http://localhost:8000/orders" in 
+    url_orders = "http://<name_docker_container>:8000/orders"
+
+2) docker network create <network_name>
+
+3) docker image build -t <nome_docker_image> .
+
+4) docker run -d -p <local_port>:<container_port> --net <network_name> --name <name_docker_container> <nome_docker_image>
+
+        docker image build -t test_charts .
+        docker image build -t test_auth .
+        docker image build -t test_kitchen .
+        docker image build -t test_orders .
+        docker image build -t test_restaurants . 
+        docker image build -t test_staff_main .
+        docker image build -t test_staff_menu .
+        docker image build -t test_webpage .
+
+        docker run -d -p 8007:8007 --net restaurantmanager --name charts test_charts
+        docker run -d -p 8003:8003 --net restaurantmanager --name auth test_auth
+        docker run -d -p 8001:8001 --net restaurantmanager --name kitchen test_kitchen
+        docker run -d -p 8000:8000 --net restaurantmanager --name orders test_orders
+        docker run -d -p 8005:8005 --net restaurantmanager --name restaurants test_restaurants
+        docker run -d -p 8006:8006 --net restaurantmanager --name staff_main test_staff_main
+        docker run -d -p 8004:8004 --net restaurantmanager --name staff_menu test_staff_menu
+        docker run -d -p 8002:8002 --net restaurantmanager --name webpage test_webpage
+
+restaurantmanager
+
+example:
+    in our case we have the WEBPAGE node that is running on port 8002 and the ORDERS node that is running on port 8000
+    
+    so for the WEBPAGE docker we can set the port as xxxx:yyyy where the xxxx represent how we can connect to it 
+    from our pc (so the port that our pc will reserve for it) and the yyyy is the port that the container will reserve
+        mypc --send_msg--> port xxxx --send_to---> docker --send_to--> port yyyy --send_msg--> container
+
+    (same for the ORDERS node)
+
+    then after creating a private network we can add our dockers container to that network so that they will be able to
+    communicate by sending messages to 
+                    http://<name_docker_container>:8000/orders 
+
+
+@lorenzo
+ESISTENZA RESTAURANT:
+    fuction name: get
+    url: 127.0.0.1:8003/restaurant
+    input: json={"restaurant": "nome effettivo del ristorante che vuoi sapere"}
+    output: json={"result": "yes" or "no"}
+
+VALIDITà TOKEN:
+    fuction name: get
+    url: 127.0.0.1:8003/validity
+    input: json={"token": "valore effettivo del token che vuoi sapere", "restaurant": "ristorante di cui voglio sapere se esiste il token"}
+    output: json={"result": "yes" or "no"}
+
+LISTA RESTAURANTS:
+    function name: get
+    url: 127.0.0.1:8003/restaurants
+    input: json={"restaurants": "si"}
+    output: example. 
+    [
+    {
+        "restaurant_name": "Paolo"
+    },
+    {
+        "restaurant_name": "Ciccio"
+    }
+]
+    -> lista di json
+
+UPDATE TOKEN:
+    function name: put 
+    url: 127.0.0.1:8003/token
+    input: json={"token": "numero del token"}
+
+
+1) dato un tavolo/token X sapere se questo esiste 
+TOKEN MANAGER:
+get(codice_token/tavolo) --> si esiste/ no non esiste 
+
+
+2) voglio un nuovo tavolo 
+TOKEN MANAGER:
+post(token) --> al token x corrisponde il tavolo 92
+
+3) cancellare un tavolo/token / cambiare status
+delete(token/tavolo)  --> elimina dal db il token/tavolo 
+
+
+4) sapere se il ristorante esiste
+get(nome_ristorante) --> si esiste
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      

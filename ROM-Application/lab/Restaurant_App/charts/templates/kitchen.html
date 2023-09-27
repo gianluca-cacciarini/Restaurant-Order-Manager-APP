@@ -1,0 +1,128 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/kitchen.css') }}">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">{{ restaurant_id }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav justify-content-center w-100">
+        <li class="nav-item">
+          <a class="nav-link" onclick="loadMenuPage(`{{restaurant_id}}`)" href="#">Menu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="loadKitchenPage(`{{restaurant_id}}`)" href="#">Kitchen</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="loadChartPage(`{{restaurant_id}}`)" href="#">Chart</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="loadTokenPage(`{{restaurant_id}}`)" href="#">Token</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" onclick="loadLoginPage()" href="#">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  
+
+  <div class="scroll-container">
+    <div class="columns">
+      {% block header %}
+        <div class="column" id="waiting-column">
+          <h2>Waiting</h2>
+          {% for order in orders %}
+            {% if order['order_status'] == 'waiting' %}
+              <article class="order-card" data-order-id="{{ order['order_id'] }}">
+                <div class="card-header">
+                  <h1>Table {{ order['table_id'] }}</h1>
+                  <div class="order_id">Order ID: {{ order['order_id'] }}</div>
+                  <div class="order-details">
+                    <div class="status">Status: {{ order['order_status'] }}</div>
+                    <p class="token">Token: {{ order['token'] }}</p>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <p class="token">Token: {{ order['token'] }}</p>
+                  <p class="items-list">{{ order['items_list'] }}</p>
+                </div>
+                <div class="card-footer">
+                  <button class="move-button move-waiting" onclick="moveOrder(`{{ order['restaurant_id'] }}`, {{ order['order_id'] }}, 'waiting')" data-target-column="in-progress">Move to In Progress</button>
+                </div>
+              </article>
+              {% if not loop.last %}
+                <hr>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="column" id="in-progress-column">
+          <h2>In Progress</h2>
+          {% for order in orders %}
+            {% if order['order_status'] == 'in_progress' %}
+              <article class="order-card" data-order-id="{{ order['order_id'] }}">
+                <div class="card-header">
+                  <h1>Table {{ order['table_id'] }}</h1>
+                  <div class="order_id">Order ID: {{ order['order_id'] }}</div>
+                  <div class="order-details">
+                    <div class="status">Status: {{ order['order_status'] }}</div>
+                    <p class="token">Token: {{ order['token'] }}</p>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <p class="token">Token: {{ order['token'] }}</p>
+                  <p class="items-list">{{ order['items_list'] }}</p>
+                </div>
+                <div class="card-footer">
+                  <button class="move-button move-in-progress" onclick="moveOrder(`{{ order['restaurant_id'] }}`, {{ order['order_id'] }}, 'in_progress')" data-target-column="ready">Move to Ready</button>
+                </div>
+              </article>
+              {% if not loop.last %}
+                <hr>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="column" id="ready-column">
+          <h2>Ready</h2>
+          {% for order in orders %}
+            {% if order['order_status'] == 'ready' %}
+              <article class="order-card" data-order-id="{{ order['order_id'] }}">
+                <div class="card-header">
+                  <h1>Table {{ order['table_id'] }}</h1>
+                  <div class="order_id">Order ID: {{ order['order_id'] }}</div>
+                  <div class="order-details">
+                    <div class="status">Status: {{ order['order_status'] }}</div>
+                    <p class="token">Token: {{ order['token'] }}</p>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <p class="items-list">{{ order['items_list'] }}</p>
+                </div>
+              </article>
+              {% if not loop.last %}
+                <hr>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endblock %}
+    </div>
+  </div>
+  
+  <script src="{{ url_for('static', filename='js/kitchen.js') }}"></script>
+</body>
+</html>

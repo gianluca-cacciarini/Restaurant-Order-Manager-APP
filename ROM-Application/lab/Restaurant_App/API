@@ -1,0 +1,64 @@
+ORDERS:
+
+    GET: get all the orderd of a token/table
+        - input: token/table
+        - output: list containing all the orders associated to the token/table in input
+            output_schema:
+                [
+                    {
+                        'order_id': 1, 
+                        'date': 'today', 
+                        'status': 'ready', 
+                        'token': '1', 
+                        'items_list': [{'name': 'item1', 'quantity': x}, {'name': 'name2', 'quantity': y}, ...]
+                    },
+                    
+                    {
+                        'order_id': 1, 
+                        'date': 'today', 
+                        'status': 'ready', 
+                        'token': '1', 
+                        'items_list': [{'name': 'item1', 'quantity': x}, {'name': 'item2', 'quantity': y}, ...]
+                    },
+                    ....
+                ]
+
+    POST: add an order to a specific token/table
+        - input: json containing the order
+            input_schema:
+                {
+                    "order_id": id,
+                    "token": token_value,
+                    "status": 'waiting',
+                    "date": 'today',
+                    "items_list": [ {"name": 'item1', "quantity": x}, {"name": 'item2', "quantity": y}, ... ]
+                }
+
+        - output: json of the new orderd 
+            output_schema:
+                {
+                    "order_id": id,
+                    "token": token_value,
+                    "status": 'waiting',
+                    "date": 'today',
+                    "items_list": [ {"name": 'item1', "quantity": x}, {"name": 'item2', "quantity": y}, ... ]
+                }
+    
+    PATCH: modify an already existing order
+        - input: the order_id and the token/table
+            input_schema:
+                {
+                    "order_id": id,
+                    "status": status,
+                    "token": token
+                }
+
+        - output: the new status of the order
+
+    DELETE: delete an order
+        -input: the order_id and the token/table
+        -output: the result of the operation
+
+
+
+

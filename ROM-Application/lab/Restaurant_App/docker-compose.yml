@@ -1,0 +1,106 @@
+version: '3'
+services:
+  authtoken:
+    build:
+      context: ./authtoken
+      dockerfile: Dockerfile
+    # Additional configurations for app1 service
+    container_name: auth
+    ports:
+      - "8003:8003"
+    networks:
+      - restaurantmanager
+
+
+  charts:
+    build:
+      context: ./charts
+      dockerfile: Dockerfile
+    # Additional configurations for app2 service
+    container_name: charts
+    ports:
+      - "8007:8007"
+    networks:
+      - restaurantmanager
+
+  kitchen:
+    build:
+      context: ./kitchen
+      dockerfile: Dockerfile
+    # Additional configurations for app2 service
+    container_name: kitchen
+    ports:
+      - "8001:8001"
+    networks:
+      - restaurantmanager
+
+  orders:
+    build:
+      context: ./orders
+      dockerfile: Dockerfile
+    # Additional configurations for app2 service
+    container_name: orders
+    ports:
+      - "8000:8000"
+    networks:
+      - restaurantmanager
+
+  restaurants:
+    build:
+      context: ./restaurants
+      dockerfile: Dockerfile
+    # Additional configurations for app2 service
+    container_name: restaurants
+    ports:
+      - "8005:8005"
+    networks:
+      - restaurantmanager
+
+  staff_main:
+    build:
+      context: ./staff_main
+      dockerfile: Dockerfile
+    # Additional configurations for app2 service
+    container_name: staff_main
+    ports:
+      - "8006:8006"
+    networks:
+      - restaurantmanager
+
+  staff_menu:
+    build:
+      context: ./staff_menu
+      dockerfile: Dockerfile
+    # Additional configurations for app2 service
+    container_name: staff_menu
+    ports:
+      - "8004:8004"
+    networks:
+      - restaurantmanager
+
+  webpage:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Additional configurations for app2 service
+    container_name: webpage
+    ports:
+      - "8002:8002"
+    networks:
+      - restaurantmanager
+
+  testing:
+    build:
+      context: ./testing
+      dockerfile: Dockerfile
+    # Additional configurations for app2 service
+    container_name: testing
+    ports:
+      - "8008:8008"
+    networks:
+      - restaurantmanager
+
+  # Add more services as needed
+
+networks:
+  restaurantmanager:

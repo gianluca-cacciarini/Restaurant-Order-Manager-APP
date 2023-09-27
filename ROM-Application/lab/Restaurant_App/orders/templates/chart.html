@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+    <script src="{{ url_for('static', filename='js/chart.js') }}" rel="stylesheet"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chart.css') }}">
+    
+    
+
+</head>
+<body onload="loading({{ret}})">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">{{ restaurant_id }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav justify-content-center w-100">
+            <li class="nav-item">
+              <a class="nav-link" onclick="loadMenuPage(`{{restaurant_id}}`)" href="#">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="loadKitchenPage(`{{restaurant_id}}`)" href="#">Kitchen</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="loadChartPage(`{{restaurant_id}}`)" href="#">Chart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="loadTokenPage(`{{restaurant_id}}`)" href="#">Token</a>
+            </li>
+          </ul>
+    
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" onclick="loadLoginPage()" href="#">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <div style="display:inline-box;">
+        <div>
+            <button onclick=" draw_curve_chart_1('day');">day</button>
+            <button onclick=" draw_curve_chart_1('month');">month</button>
+            <button onclick=" draw_curve_chart_1('year');">year</button>
+            <button onclick=" draw_curve_chart_1('week');">week</button>
+        </div>
+        <div>
+            <button id="2021" onclick=" setOption('2021');">2021</button>
+            <button id="2022" onclick=" setOption('2022');">2022</button>
+            <button id="2023" onclick=" setOption('2023');">2023</button>
+        </div>
+        <div id="curve_chart" style=" height: 700px"></div>
+        <div style="display: flex; justify-content: center;">
+            <div style="padding-right: 30px;">
+                FROM: <input id="datapicker_from" type="date" value="2023-01-06">
+            </div>
+            <div style="padding-right: 30px;">
+                TO: <input id="datapicker_to" type="date" value="2023-01-08">
+            </div>
+            <div>
+                <button id="pie_filter_button" onclick="changeChartType('pie');" style="background-color: #008000;">Pie</button>
+                <button id="combo_filter_button" onclick="changeChartType('combo');" style="background-color: #ffffff;">Combo</button>
+                <button id="category_filter_button" onclick="changeChartFilter('category');" style="background-color: green;">Category</button>
+                <button id="items_filter_button" onclick="changeChartFilter('item');">Item</button>
+                <button id="draw_pie_charts" onclick="draw();">Draw</button>
+            </div>
+            
+        </div>
+        
+        <div style="display: inline-flex; justify-content: flex-start;">
+            <div id="pie_combo_chart_1" style="width: 600px; height: 500px;"></div>
+            <div id="pie_combo_chart_2" style="width: 600px; height: 500px;"></div>
+        </div>
+        
+    </div>
+
+</body>
+</html>

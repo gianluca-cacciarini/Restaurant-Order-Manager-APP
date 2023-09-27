@@ -1,0 +1,197 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.scroll-container {
+  display: block;
+  justify-content: left;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(20%, 1fr));
+  grid-gap: 20px;
+  max-width: 100%;
+}
+
+.item-card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.image {
+  text-align: center;
+  
+}
+
+.image img {
+  max-width: 100%;
+  max-height: auto;
+  border-radius: 5px;
+}
+
+.card-body {
+  margin-top: 10px;
+  padding: 1rem;
+}
+
+.item-details {
+  margin-bottom: 10px;
+}
+
+.item-name {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.category {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.item-price {
+  font-size: 25px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.allergens {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.light-gray {
+  color: #888;
+}
+
+.divider {
+  border-top: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.item-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.btn-edit,
+.btn-delete {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background-color: #2868a7;
+  margin-right: 5px;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  max-width: 500px;
+}
+
+.popup h2 {
+  text-align: center;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.popup-buttons button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.popup-buttons button:first-child {
+  background-color: #dc3545;
+  margin-right: 10px;
+}
+
+.popup-buttons button:last-child {
+  background-color: #28a745;
+}
+
+.btn-add {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 24px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-row label {
+  width: 120px;
+  margin-right: 10px;
+}
+
+.form-row input {
+  flex-grow: 1;
+}
+
+.form-row textarea {
+  flex-grow: 1;
+}
+
+.navbar {
+  background: linear-gradient(120deg, #FF3355, #FF6699); /* Blue gradient */
+}
+
+.navbar-light .navbar-brand {
+  color:#fff;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #fff;
+}
