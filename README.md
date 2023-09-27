@@ -1,6 +1,6 @@
 <p align="center">
    
-   # DineEase 
+   # DineEase 🍽️🥢🍚
    <img src="ROM-Application/img/logo.PNG" height="200em">
 </p>
 
