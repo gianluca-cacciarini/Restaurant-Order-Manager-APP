@@ -8,6 +8,7 @@
 
 ![Version](https://img.shields.io/badge/Version-0.1.0-brightgreen)
 ![Language](https://img.shields.io/badge/Language-python-blue)
+![Framework](https://img.shields.io/badge/Framework-flask-yellow)
 ---
 Currently, many restaurants, provide tablets for customers to place orders directly from their tables. However, this solution presents significant challenges for both customers and staff.
 
