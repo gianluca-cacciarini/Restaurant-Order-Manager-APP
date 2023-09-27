@@ -1,4 +1,9 @@
-# DineEase <img src="" height="30em"> 
+<p align="center">
+   
+   # DineEase 
+   <img src="ROM-Application/img/logo.PNG" height="200em">
+</p>
+
 #### A Restaurant Order Manager APP
 
 ![Version](https://img.shields.io/badge/Version-0.1.0-brightgreen)
